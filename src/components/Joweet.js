@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { dbService } from "../fbInstance";
+import { dbService, storageService } from "../fbInstance";
 
 const Joweet = ({joweetObj, isOwner}) => {
     const [editing, setEditing] = useState(false);
@@ -8,6 +8,7 @@ const Joweet = ({joweetObj, isOwner}) => {
         const ok = window.confirm("해당 Joweet을 삭제 하시겠습니까?");
         if(ok){
             await dbService.doc(`joweets/${joweetObj.id}`).delete();
+            await storageService.refFromURL(joweetObj.attachmentUrl).delete();
         }
     }
     const toggleEditing = () => setEditing((prev) => !prev);
@@ -42,6 +43,7 @@ const Joweet = ({joweetObj, isOwner}) => {
              ) : (
             <>
                 <h4>{joweetObj.text}</h4>
+                {joweetObj.attachmentUrl && <img src={joweetObj.attachmentUrl} width="50px" height="50px" alt="" />}
                 {isOwner && (
                     <>
                         <button onClick={onDeleteClick}>Delete Joweet</button>

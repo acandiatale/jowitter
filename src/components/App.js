@@ -5,6 +5,7 @@ import { authService } from "../fbInstance";
 function App() {
   const [init, setInit] =useState(false);
   const [userObj, setUserObj] = useState(null);
+  
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if(user) {

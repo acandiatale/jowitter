@@ -6,9 +6,10 @@ import Profile from "../routes/Profile";
 import Navigation from "./Navigation";
 
 const AppRouter = ({isLoggedIn, userObj}) => {
+    console.log(userObj);
     return (
         <Router>
-            {isLoggedIn && <Navigation />}
+            {isLoggedIn && <Navigation userObj={userObj} />}
             <Switch>
                 {isLoggedIn ? 
                 <>
